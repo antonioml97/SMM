@@ -15,22 +15,30 @@ import java.awt.Point;
  */
 public class Lienzo extends javax.swing.JPanel {
      enum Forma{
-        Punto,Linea, Rectangulo,Elipse;
+        Nada,Punto,Linea, Rectangulo,Elipse;
     }
     //Punto donde se hace los clicks
-    Point pInicial= new Point(-100,-100);
-    Point pFinal= new Point(-100,-100);
+    Point pInicial;
+    Point pFinal;
             
-    private Color color = Color.black;
-    Forma forma=Forma.Punto;
+    private Color color;
+    Forma forma;
    
-    boolean relleno=false;
+    boolean relleno;
+    public Lienzo() {
+        initComponents();
+        color = Color.black;
+        forma=Forma.Nada;
+        pInicial= new Point(-100,-100);
+        pFinal= new Point(-100,-100);
+        relleno=false;
+    }
     
     public void setForma(Forma forma_nueva){
         forma=forma_nueva;
     }
     
-    public void limpiar(){
+   public void limpiar(){
         pInicial = pFinal = null;
         this.repaint();
     }
@@ -91,9 +99,7 @@ public class Lienzo extends javax.swing.JPanel {
     /**
      * Creates new form Lienzo
      */
-    public Lienzo() {
-        initComponents();
-    }
+  
     @Override
     public void paint(Graphics g){
       super.paint(g);

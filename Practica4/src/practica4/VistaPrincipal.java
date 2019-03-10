@@ -6,6 +6,8 @@
 package practica4;
 
 import java.awt.Color;
+import java.io.File;
+import javax.swing.JFileChooser;
 import practica4.Lienzo.Forma;
 
 /**
@@ -13,12 +15,13 @@ import practica4.Lienzo.Forma;
  * @author anton
  */
 public class VistaPrincipal extends javax.swing.JFrame {
-
+   
     /**
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() {
         initComponents();
+        
         this.setSize(400,400);
     }
 
@@ -216,23 +219,31 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
         jMenu1.setAutoscrolls(true);
 
+        Nuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_MASK));
         Nuevo.setText("Nuevo");
         Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NuevoActionPerformed(evt);
+                ArchivoNuevo(evt);
             }
         });
         jMenu1.add(Nuevo);
 
+        Abrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         Abrir.setText("Abrir");
         Abrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AbrirActionPerformed(evt);
+                ArchivoAbrir(evt);
             }
         });
         jMenu1.add(Abrir);
 
+        Guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarArchivo(evt);
+            }
+        });
         jMenu1.add(Guardar);
 
         jMenuBar1.add(jMenu1);
@@ -241,6 +252,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         VerBarraEstado.setSelected(true);
         VerBarraEstado.setText("Ver barra de estado");
+        VerBarraEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBarraEstado(evt);
+            }
+        });
         jMenu2.add(VerBarraEstado);
 
         jMenuBar1.add(jMenu2);
@@ -250,13 +266,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NuevoActionPerformed
-
-    private void AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AbrirActionPerformed
+    private void ArchivoAbrir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArchivoAbrir
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showOpenDialog(this);
+        if( resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_ArchivoAbrir
 
     private void OvaloMarcado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OvaloMarcado
         HerramientaSeleccionada.setText("Elipse");
@@ -312,6 +328,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
         else
             lienzo.setRelleno(false);
     }//GEN-LAST:event_BotonRellenoActionPerformed
+
+    private void ArchivoNuevo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArchivoNuevo
+        lienzo.limpiar();
+    }//GEN-LAST:event_ArchivoNuevo
+
+    private void BotonBarraEstado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBarraEstado
+      boolean verBarra = VerBarraEstado.isSelected();
+      BarraEstado.setVisible(verBarra);
+    }//GEN-LAST:event_BotonBarraEstado
+
+    private void GuardarArchivo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarArchivo
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showSaveDialog(this);
+        if( resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_GuardarArchivo
 
     /**
      * @param args the command line arguments
